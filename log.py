@@ -29,12 +29,19 @@ import psycopg2
 
 DBNAME = "news"
 
-def get_most_popular_articles():
+def connect_to_db(DBNAME):
     """
-    Prints most popular articles from the 'database'
+    Connects to DBNAME
     """
     db = psycopg2.connect(database=DBNAME)
     c = db.cursor()
+    return db, c
+
+def get_most_popular_articles():
+    """
+    Prints most popular articles from database DBNAME
+    """
+    db, c = connect_to_db(DBNAME)
     sql_query = """
                 SELECT title
                 FROM articles
