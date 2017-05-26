@@ -33,9 +33,20 @@ def get_most_popular_articles():
     """
     Prints most popular articles from the 'database'
     """
-    db = psycopg2.connect(database=DBNAME) #connect to db
-    c = db.cursor() #runs queries and fetches results; when db gives results cursor scans through results
-    c.execute("SELECT path, count(path) FROM log WHERE path != '/' GROUP BY path ORDER BY count DESC LIMIT 3") #execute query
-    results = c.fetchall() #fetch query resuls from db
-    print(results)
+    db = psycopg2.connect(database=DBNAME)
+    c = db.cursor()
+    sql_query = """
+                SELECT title
+                FROM articles
+                WHERE ROW (slug) IN (SELECT SUBSTRING(path,10,30) as Path
+                FROM log
+                WHERE path != '/'
+                GROUP BY path
+                ORDER BY count(path) DESC LIMIT 3)
+                ORDER BY title DESC
+                """
+    c.execute(sql_query)
+    print("Most popular 3 articles from highest to lowest: ")
+    for article in c:
+        print(article[0])
     db.close()
