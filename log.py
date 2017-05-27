@@ -57,3 +57,23 @@ def get_most_popular_articles():
     for article in c:
         print(article[0])
     db.close()
+
+def create_view_top_authors():
+    """
+    Creates view topAuthors
+    """
+    db, c = connect_to_db(DBNAME)
+    sql_query = """
+                CREATE view topAuthors AS
+                SELECT author,title
+                FROM articles
+                WHERE ROW (slug) IN (SELECT SUBSTRING(path,10,30) as Path
+                FROM log
+                WHERE path != '/'
+                GROUP BY path
+                ORDER BY count(path) DESC LIMIT 8)
+                ORDER BY title DESC;
+                """
+    c.execute(sql_query)
+    db.commit()
+    db.close()
