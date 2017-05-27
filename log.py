@@ -91,3 +91,4 @@ def drop_view_top_authors():
     db.close()
 
 if __name__ == '__main__':
+    get_most_popular_articles()
