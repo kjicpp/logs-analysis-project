@@ -89,3 +89,5 @@ def drop_view_top_authors():
     c.execute(sql_query)
     db.commit()
     db.close()
+
+if __name__ == '__main__':
