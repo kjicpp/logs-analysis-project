@@ -77,3 +77,15 @@ def create_view_top_authors():
     c.execute(sql_query)
     db.commit()
     db.close()
+
+def drop_view_top_authors():
+    """
+    Drops view topAuthors
+    """
+    db, c = connect_to_db(DBNAME)
+    sql_query = """
+                DROP VIEW topAuthors;
+                """
+    c.execute(sql_query)
+    db.commit()
+    db.close()
