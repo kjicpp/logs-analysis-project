@@ -54,8 +54,11 @@ def get_most_popular_articles():
                 """
     c.execute(sql_query)
     print("Most popular 3 articles from highest to lowest: ")
+    rank = 0
     for article in c:
+        print("%d. ",rank)
         print(article[0])
+        rank += 1
     db.close()
 
 def create_view_top_authors():
@@ -92,3 +95,4 @@ def drop_view_top_authors():
 
 if __name__ == '__main__':
     get_most_popular_articles()
+    create_view_top_authors()
