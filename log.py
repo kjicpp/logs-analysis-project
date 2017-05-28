@@ -95,3 +95,4 @@ def drop_view_top_authors():
 if __name__ == '__main__':
     get_most_popular_articles()
     create_view_top_authors()
+    drop_view_top_authors()
