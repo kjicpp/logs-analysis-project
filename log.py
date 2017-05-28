@@ -56,8 +56,7 @@ def get_most_popular_articles():
     print("Most popular 3 articles from highest to lowest: ")
     rank = 0
     for article in c:
-        print("%d. ",rank)
-        print(article[0])
+        print (str(rank) + '. ' + article[0])
         rank += 1
     db.close()
 
