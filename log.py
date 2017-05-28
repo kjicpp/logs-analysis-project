@@ -114,6 +114,37 @@ def get_most_popular_authors():
         rank += 1
     db.close()
 
+def get_request_errors():
+    """
+    Prints days that have more than 1 percent of requests that lead to errors
+    """
+    db, c = connect_to_db(DBNAME)
+    sql_query = """
+                SELECT days,total_errors,total_requests,
+                round((total_errors::numeric/total_requests::numeric)*100,2)
+                AS percent_of_errors
+                FROM (SELECT DATE_TRUNC('day', time)::date
+                AS days, count(status)
+                AS total_requests,
+                SUM(
+                    CASE WHEN status != '200 OK' THEN 1
+                         ELSE 0
+                    END) AS total_errors
+                FROM log
+                GROUP BY DATE_TRUNC('day', time)::date)
+                AS end_result
+                WHERE (total_errors::numeric/total_requests::numeric)*100 > 1.0
+                ORDER BY percent_of_errors DESC;
+                """
+    c.execute(sql_query)
+    print("\nDays with more than 1% of requrest errors: \n")
+    rank = 1
+    for article in c:
+        print(str(rank) + '. ' + str(article[0]) + ' | ' + str(article[3])
+              + '%')
+        rank += 1
+    db.close()
+
 if __name__ == '__main__':
     get_most_popular_articles()
     create_view_top_authors()
