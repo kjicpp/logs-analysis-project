@@ -45,7 +45,7 @@ def get_most_popular_articles():
     sql_query = """
                 SELECT title
                 FROM articles
-                WHERE ROW (slug) IN (SELECT SUBSTRING(path,10,30) as Path
+                WHERE ROW (slug) IN (SELECT SUBSTRING(path,10,30) AS Path
                 FROM log
                 WHERE path != '/'
                 GROUP BY path
@@ -69,7 +69,7 @@ def create_view_top_authors():
                 CREATE view topAuthors AS
                 SELECT author,title
                 FROM articles
-                WHERE ROW (slug) IN (SELECT SUBSTRING(path,10,30) as Path
+                WHERE ROW (slug) IN (SELECT SUBSTRING(path,10,30) AS Path
                 FROM log
                 WHERE path != '/'
                 GROUP BY path
@@ -150,3 +150,4 @@ if __name__ == '__main__':
     create_view_top_authors()
     get_most_popular_authors()
     drop_view_top_authors()
+    get_request_errors()
