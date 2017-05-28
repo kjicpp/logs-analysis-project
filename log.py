@@ -92,6 +92,28 @@ def drop_view_top_authors():
     db.commit()
     db.close()
 
+def get_most_popular_authors():
+    """
+    Prints most popular authors from database DBNAME
+    """
+    db, c = connect_to_db(DBNAME)
+    sql_query = """
+                SELECT name
+                from articles JOIN authors
+                ON articles.author = (SELECT author
+                FROM topAuthors
+                GROUP BY author
+                ORDER BY COUNT(*) DESC
+                LIMIT    1) LIMIT 4;
+                """
+    c.execute(sql_query)
+    print("\nMost popular 4 authors from highest to lowest: \n")
+    rank = 1
+    for article in c:
+        print (str(rank) + '. ' + article[0])
+        rank += 1
+    db.close()
+
 if __name__ == '__main__':
     get_most_popular_articles()
     create_view_top_authors()
