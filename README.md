@@ -1,30 +1,25 @@
 # Overview
 An internal reporting tool that generates informative summaries from a news database.
 
-This project satisfies a project requirement for Udacity's Full Stack Web Developer Degree.
-
-***
+This project satisfies a project requirement for Udacity's [Full Stack Web Developer Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd004).
 
 # Enviroment Setup
 
-### Installing the virtual machine
+### Install the virtual machine
 
 1. Download & install  [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 2. Download & install [Vagrant](https://www.vagrantup.com/downloads.html)
-
 Check if Vagrant is successfully installed by running on terminal.
 
-```vagrant --version```
+  ```vagrant --version```
 
-If you see the version number, then you're good.
+  If you see the version number, then you're good.
 
 ### Download VM configuration
 
-1. Download & unzip
-[FSND-Virtual-Machine.zip](https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59125904_fsnd-virtual-machine/fsnd-virtual-machine.zip)
-
-2. Or you can use Github to fork and clone the repository https://github.com/udacity/fullstack-nanodegree-vm.
+1. Download or Clone the repository
+```git clone https://github.com/kiraheta/logs-analysis-project.git```
 
 3. ```cd``` into directory **FSND-Virtual-Machine**. Inside, you will find another directory called **vagrant**. Change directory into the vagrant directory
 
@@ -37,6 +32,19 @@ If you see the version number, then you're good.
 3. Lastly, run ```cd /vagrant```
 
 ### Download the data
-1. Download & unzip [news db](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
+1. Download & unzip [newsdata.zip](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
 
 2. Place the file ```newsdata.sql``` inside of the ```vagrant``` directory
+
+3. Load the data via the command
+```psql -d news -f newsdata.sql```
+
+## Running the internal reporting tool
+
+1. Run ```python log.py```
+
+## Program output
+
+If module runs successfully, you will see the following output:
+
+![output](logs-analysis-project/output.png)
